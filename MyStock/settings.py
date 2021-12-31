@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'board',
+    'single_pages', # 추가 안시켜줘서 html 못불러왔었음.
 ]
 
 MIDDLEWARE = [
