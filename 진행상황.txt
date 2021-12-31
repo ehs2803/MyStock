@@ -1,0 +1,4 @@
+2021.12.31
+- board, single_pages 앱 생성
+- single_pages에 부트스트랩, templates, static 폴더 적용
+
