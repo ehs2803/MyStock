@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'board',
     'single_pages', # 추가 안시켜줘서 html 못불러왔었음.
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# login url
+LOGIN_REDIRECT_URL = ''
