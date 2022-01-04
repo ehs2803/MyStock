@@ -1,6 +1,10 @@
 from django.db import models
 
 # Create your models here.
+from pytz import timezone
+
+from MyStock import settings
+
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
@@ -24,6 +28,16 @@ class AuthUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
+
+    @property
+    def created_at_korean_time(self):
+        korean_timezone = timezone(settings.TIME_ZONE)
+        return self.date_joined.astimezone(korean_timezone)
+
+    @property
+    def last_login_at_korean_time(self):
+        korean_timezone = timezone(settings.TIME_ZONE)
+        return self.last_login.astimezone(korean_timezone)
 
     class Meta:
         managed = False

@@ -4,9 +4,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from accounts.models import AuthUser
-from board.models import BoardSe005930
-from django.utils import timezone
+from board.models import BoardSe005930, CommentSe005930
 from datetime import datetime
+from django.utils import timezone
 
 def landing(request):
     user = None
@@ -73,11 +73,11 @@ def board_SE005930_post(request, pk):
     # 게시글 정보 로드
     post = get_object_or_404(BoardSe005930, pk=pk)
     # 댓글 정보 로드
-    #comment = CommentFreeboard.objects.filter(pid=pk).order_by('created_date')
+    comment = CommentSe005930.objects.filter(pid=pk).order_by('created_date')
 
     # 해당 게시글 페이지(freeboard_post.html) 반환
     return render(request, 'board/SE005930/board_post.html',
-                  {'post' : post, 'user' : user, 'uname':uname})
+                  {'post' : post, 'user' : user, 'uname':uname,'comment':comment})
 
 # Free Board 게시글 수정
 def board_SE005930_edit(request, pk):
@@ -102,5 +102,62 @@ def board_SE005930_edit(request, pk):
 # Free Board 게시글 삭제
 def board_SE005930_delete(request, pk):
     post = BoardSe005930.objects.get(id=pk)                                 # 해당 게시글 테이블 저장
-    post.delete()                                                       # 해당 게시글 삭제
-    return redirect(f'/board/SE005930')                                      # 자유 게시판 페이지로 이동
+    post.delete()                  # 해당 게시글 삭제
+    return redirect(f'/board/SE005930')     # 자유 게시판 페이지로 이동
+
+
+def board_SE005930_comment(request, pk):
+    post = get_object_or_404(BoardSe005930, pk=pk)
+    # 사용자정보 로드
+    user = None
+    if request.session.get('id'):  # 로그인 중이면
+        user = AuthUser.objects.get(pk=request.session.get('id'))  # 사용자 이름 저장
+
+    # POST 요청시
+    if request.method == 'POST':
+        new_comment = CommentSe005930.objects.create(
+            pid=BoardSe005930.objects.get(id=pk),
+            uid=user.id,
+            username=user.username,
+            comments=request.POST['content'],
+        )
+        return redirect(f'/board/SE005930/post/{post.id}',{'post': post, 'user': user})  # 해당 게시글 페이지로 이동
+
+    return render(request, f'/board/SE005930/post/{post.id}',{'post': post, 'user': user})
+
+# Free Board 게시글 삭제
+def comment_SE005930_delete(request, pk, date):
+    post = get_object_or_404(BoardSe005930, pk=pk)
+    # Jan. 3, 2022, 9:41 a.m.
+    timelist = date.split(' ')
+    year = timelist[2][0:4]
+    month = '01' #timelist[0][:timelist[0].find(',')]
+    day = timelist[1][:timelist[1].find(',')]
+    hour = timelist[3][:timelist[3].find(':')]
+    if timelist[4][0]=='p':
+        if hour!='12': hour = int(hour)+12
+    min = timelist[3][timelist[3].find(':')+1:]
+    hour='5'
+    #YYYY - MM - DD HH: MM
+    # 사용자정보 로드
+    user = None
+    if request.session.get('id'):  # 로그인 중이면
+        user = AuthUser.objects.get(pk=request.session.get('id'))  # 사용자 이름 저장
+
+    print(year, month, day, hour, min)
+    comment = CommentSe005930.objects.filter(pid=pk, uid=user.id)
+    for i in comment:
+        time = str(i.created_date)
+        timesplit = time.split(' ')
+        temp_date = timesplit[0].split('-')
+        temp_time = timesplit[1].split(':')
+        cyear = temp_date[0]
+        cmonth = temp_date[1]
+        cday = temp_date[2]
+        chour = temp_time[0]
+        cmin = temp_time[1]
+        print(cyear, cmonth, cday, chour, cmin)
+        if int(year)==int(cyear) and int(month)==int(cmonth) and int(day)==int(cday) and int(hour)==int(chour) and int(min)==int(cmin):
+            i.delete()
+    return redirect(f'/board/SE005930/post/{post.id}')     # 자유 게시판 페이지로 이동
+
