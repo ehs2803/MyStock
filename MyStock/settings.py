@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     'board',
     'single_pages', # 추가 안시켜줘서 html 못불러왔었음.
-    'accounts'
+    'accounts',
+    'articles',
 ]
 
 MIDDLEWARE = [

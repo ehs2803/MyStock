@@ -38,14 +38,12 @@
 				</ul>
 			</nav>
 
-
 <div class="masthead ">
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-xs-10 mx-auto">
                 <br>
                 <h1 class="panel-title text-center">게시물 수정</h1>
-
                 <form action="" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
@@ -62,7 +60,7 @@
                         <textarea cols="10" rows="20" id="contents" name="contents" class="form-control form-control-lg input-block">{{post.contents}}</textarea>
                     </div>
                     <br>
-                    <button type="button" class="btn btn-lg btn-outline-dark" onclick="location.href = '/freeboard_post/{{post.id}}'">이전</button>
+                    <button type="button" class="btn btn-lg btn-outline-dark" onclick="location.href = '/board/SE005930/post/{{post.id}}'">이전</button>
                     <button type="button" class="btn btn-lg btn-outline-success" style="float:right;" data-toggle="modal" data-target="#exampleModalCenter">저장</button>
                     <!-- 게시물 수정 -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
