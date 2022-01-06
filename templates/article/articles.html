@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .tempclass {
+            margin: 5px;
+            padding: 5px;
+            border: 2px solid black;
+            border-radius: 25px;
+
+        }
+
+        .lsclass {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<p>{{search}}</p>
+{% for new in news %}
+<a href={{new.url}} target='_blank' ><p>{{new.title}}</p></a>
+
+{% endfor %}
+</body>
+</html>

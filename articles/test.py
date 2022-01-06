@@ -35,13 +35,13 @@ print(len(articles), "개의 기사가 검색됌.")
 news_title = []
 for i in articles:
     news_title.append(i.attrs['title'])
-news_title
+print(news_title)
 
 # 뉴스기사 URL 가져오기
 news_url = []
 for i in articles:
     news_url.append(i.attrs['href'])
-news_url
+print(news_url)
 
 # 뉴스기사 내용 크롤링하기
 contents = []

@@ -21,5 +21,5 @@ urlpatterns = [
     path('', include("single_pages.urls")),
     path('accounts/', include("accounts.urls")),
     path('board/', include("board.urls")),
-    path('article', include("articles.urls")),
+    path('article/', include("articles.urls")),
 ]
