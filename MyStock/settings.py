@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'single_pages', # 추가 안시켜줘서 html 못불러왔었음.
     'accounts',
     'articles',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -72,8 +74,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'MyStock.wsgi.application'
 
+WSGI_APPLICATION = 'MyStock.wsgi.application'
+ASGI_APPLICATION = 'MyStock.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
