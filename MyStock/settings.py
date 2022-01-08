@@ -78,6 +78,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'MyStock.wsgi.application'
 ASGI_APPLICATION = 'MyStock.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+            "capacity": 300,
+        },
+    },
+}
+ASGI_THREADS = 1000
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 '''
