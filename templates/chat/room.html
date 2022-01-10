@@ -4,46 +4,81 @@
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    <style>
+
+        body {
+            background-color: lightyellow;
+        }
+
+        #chat-log {
+            color: red;
+            font-size: large;
+            top: 50%;
+            text-align: right;
+        }
+
+        .div_box{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+    </style>
 </head>
 
 <body>
+<div class="div_box">
     <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
+</div>
+
 </body>
 
 <script>
-    var roomName = {{ room_name_json }};
-
+    var roomName = {{room_name_json}};
+    var userName = {{username_json}};
+    //var username = {{user.username}};
     //var chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/');
-    var chatSocket = new WebSocket('ws://localhost:8000/ws/chat/'+roomName+'/');
-        chatSocket.onopen = () => {
+    var chatSocket = new WebSocket('ws://localhost:8000/ws/chat/' + roomName + '/');
+    chatSocket.onopen = () => {
         console.log(`Connected to`);
-
     }
-    chatSocket.onmessage = function(e) {
+
+    chatSocket.onmessage = function (e) {
         var data = JSON.parse(e.data);
-        var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        var message = data.message; //data['message'];
+        var suername = data.suername;//data['suername'];
+        var date = new Date(Date.now());
+        console.log(date);
+        console.log(message);
+        console.log(suername);
+        document.querySelector('#chat-log').value += (suername + ' : ' + message + '   '+ date+ '\n');
     };
 
-    chatSocket.onclose = function(e) {
+    chatSocket.onclose = function (e) {
         console.error('Chat socket closed unexpectedly');
     };
 
     document.querySelector('#chat-message-input').focus();
-    document.querySelector('#chat-message-input').onkeyup = function(e) {
+    document.querySelector('#chat-message-input').onkeyup = function (e) {
         if (e.keyCode === 13) {  // enter, return
             document.querySelector('#chat-message-submit').click();
         }
     };
 
-    document.querySelector('#chat-message-submit').onclick = function(e) {
+    document.querySelector('#chat-message-submit').onclick = function (e) {
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
-            'message': message
-        }));
+        var un = userName;
+        var msg = {
+            "message": message,
+            "suername": un,
+            "date": Date.now()
+        };
+        chatSocket.send(JSON.stringify(msg));
 
         messageInputDom.value = '';
     };
