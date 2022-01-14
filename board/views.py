@@ -159,5 +159,6 @@ def comment_SE005930_delete(request, pk, date):
         print(cyear, cmonth, cday, chour, cmin)
         if int(year)==int(cyear) and int(month)==int(cmonth) and int(day)==int(cday) and int(hour)==int(chour) and int(min)==int(cmin):
             i.delete()
+            break
     return redirect(f'/board/SE005930/post/{post.id}')     # 자유 게시판 페이지로 이동
 

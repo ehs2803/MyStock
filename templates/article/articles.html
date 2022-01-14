@@ -15,13 +15,22 @@
         .lsclass {
             height: 50px;
         }
+        #content{
+
+            ine-height: 150px; /* 세로 가운데 정렬 : line-height와 height값을 동일하게 처리합니다.*/
+            text-align: center /* 텍스트 가운데 정렬 */
+        }
+
     </style>
 </head>
 <body>
-<p>{{search}}</p>
-{% for new in news %}
-<a href={{new.url}} target='_blank' ><p>{{new.title}}</p></a>
+{{search}}
+<div id="content">
+    <h1>{{title}} 뉴스</h1>
+    {% for new in news %}
+    <a href={{new.url}} target='_blank'><p>{{new.title}}</p></a>
+    {% endfor %}
+</div>
 
-{% endfor %}
 </body>
 </html>
