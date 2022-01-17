@@ -16,7 +16,6 @@
             top: 50%;
             text-align: right;
         }
-
         .div_box{
             position: absolute;
             top: 50%;
@@ -49,13 +48,18 @@
 
     chatSocket.onmessage = function (e) {
         var data = JSON.parse(e.data);
-        var message = data.message; //data['message'];
-        var suername = data.suername;//data['suername'];
-        var date = new Date(Date.now());
-        console.log(date);
-        console.log(message);
-        console.log(suername);
-        document.querySelector('#chat-log').value += (suername + ' : ' + message + '   '+ date+ '\n');
+        console.log(e.data);
+        var ssuername = data['message'][1];
+        var message = data['message'][0];
+        var date = new Date(data['message'][2]);
+        if(userName==ssuername){
+            document.querySelector('#chat-log').style.textAlign =  "right";
+            document.querySelector('#chat-log').value += (ssuername + ' : ' + message + '   '+ date+ '\n');
+        }
+        else{
+            document.querySelector('#chat-log').value += (ssuername + ' : ' + message + '   '+ date+ '\n');
+            document.querySelector('#chat-log').style.textAlign =  "left";
+        }
     };
 
     chatSocket.onclose = function (e) {
@@ -72,11 +76,9 @@
     document.querySelector('#chat-message-submit').onclick = function (e) {
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
-        var un = userName;
+        var sender = userName;
         var msg = {
-            "message": message,
-            "suername": un,
-            "date": Date.now()
+            'message': [message, sender, Date.now()]
         };
         chatSocket.send(JSON.stringify(msg));
 
