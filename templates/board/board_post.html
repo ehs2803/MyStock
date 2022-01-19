@@ -11,10 +11,7 @@
 <body>
 <!-- Header -->
 <header id="header">
-    <nav class="left">
-        <a href="#menu"><span>Menu</span></a>
-    </nav>
-    <a href="" class="logo">Task Manager</a>
+    <a href="/board/{{code}}" class="logo">게시판</a>
 
     {% if user %}
     <nav class="right">
@@ -27,27 +24,12 @@
     </nav>
     {% endif %}
 </header>
-
-<!-- Menu -->
-<nav id="menu">
-    <ul class="links">
-        <li><a href="">Home</a></li>
-        <li><a href="">게시판</a></li>
-        <li><a href="">Q & A</a></li>
-        <li><a href="}">마이페이지</a></li>
-    </ul>
-    <ul class="actions vertical">
-        <li><a href="#" class="button fit">Login</a></li>
-    </ul>
-</nav>
-
-
 <div class="masthead ">
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-xs-10 mx-auto">
                 <br>
-                <h1 class="panel-title text-center">삼성전자</h1>
+                <h1 class="panel-title text-center">{{code}}</h1>
                 <table class="table">
                     <thead style="white-space:nowrap;">
                     <tr>
@@ -77,7 +59,7 @@
                     </tbody>
                 </table>
                 <br><br>
-                <button type="button" class="btn btn-lg btn-outline-dark" onclick="location.href = '/board/SE005930'">
+                <button type="button" class="btn btn-lg btn-outline-dark" onclick="location.href = '/board/{{code}}'">
                     이전
                 </button>
 
@@ -103,7 +85,7 @@
                     <p>{{ com.comments }}</p>
                     {% if com.username == uname %}
                     <button type="submit" class="btn btn-lg btn-danger"
-                            onclick="location.href = '/board/SE005930/delete/comment/{{post.id}}/{{com.created_date}}'">삭제
+                            onclick="location.href = '/board/{{code}}/comment/delete/{{post.id}}/{{com.comment_id}}'">삭제
                     </button>
                     {% endif %}
                 </div>
@@ -118,7 +100,7 @@
                 {% if user %}
                 <div class="container my-3">
                     <h5 class="border-bottom pb-2">댓글등록하기</h5>
-                    <form method="post" action="/board/SE005930/comment/{{post.id}}" class="post-form my-3">
+                    <form method="post" action="/board/{{code}}/comment/{{post.id}}" class="post-form my-3">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="content">댓글내용</label>
@@ -167,7 +149,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-lg btn-danger"
-                                        onclick="location.href = '/board/SE005930/delete/{{post.id}}'">삭제
+                                        onclick="location.href = '/board/{{code}}/delete/{{post.id}}'">삭제
                                 </button>
                                 <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">닫기</button>
                             </div>

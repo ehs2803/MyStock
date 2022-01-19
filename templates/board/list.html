@@ -8,14 +8,11 @@
 </head>
 
 
-<!-- FreeBoard-->
+<!-- Board-->
 <body>
 <!-- Header -->
 <header id="header">
-    <nav class="left">
-        <a href="#menu"><span>Menu</span></a>
-    </nav>
-    <a href="/" class="logo">삼성전자</a>
+    <a href="/board/{{code}}" class="logo">{{code}}</a>
 
     {% if user %}
     <nav class="right">
@@ -49,7 +46,7 @@
                     </thead>
                     <tbody>
                     {% for post in posts %}
-                    <tr style="white-space:nowrap;" onclick="location.href = '/board/SE005930/post/{{post.id}}'">
+                    <tr style="white-space:nowrap;" onclick="location.href = '/board/{{code}}/post/{{post.id}}'">
                         <th>{{post.id}}</th>
                         <th>{{post.title}}</th>
                         <td>{{post.username}}</td>
