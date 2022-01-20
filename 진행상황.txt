@@ -59,3 +59,11 @@
 2022.01.19
 - 게시판 기능 완료. 8개 종목에 대해서 다른 방식으로 구현 완료.
 - 새로운 db모델 적용. commet delete 기능 완료.
+
+2022.01.20
+- https://api.odcloud.kr/api/GetStockSecuritiesInfoService/v1/getStockPriceInfo?numOfRows=1
+&pageNo=1&resultType=json&likeSrtnCd=005930&
+serviceKey=O9%2FzxATILEOqXHWNZM6rDN2UXEmueF1yOIURlNSAshJpcjhZg6cObeu16LCGZUr%
+2BDbbjoiMdCfz9XZv3y6zAKg%3D%3D
+openapi 공공포털 삼성전자 활용
+- views.py에 네이버 주식 시세 가져오기 성공.

@@ -2,7 +2,9 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import models
-
+from urllib import parse
+from ast import literal_eval
+import requests
 # Create your views here.
 from accounts.models import AuthUser
 
@@ -28,7 +30,17 @@ def landing(request):
     )
     '''
 
+def get_sise(code, start_time, end_time, time_from='day') :
+    get_param = { 'symbol':code, 'requestType':1, 'startTime':start_time, 'endTime':end_time, 'timeframe':time_from }
+    get_param = parse.urlencode(get_param)
+    url="https://api.finance.naver.com/siseJson.naver?%s"%(get_param)
+    response = requests.get(url)
+    return literal_eval(response.text.strip())
+
 def BOARD(request, code):
+
+    info = get_sise('005930', '20210601', '20210605', 'day')
+    print(info)
     # 사용자정보 로드
     user = None
     if request.session.get('id'):                                 # 로그인 중이면
@@ -62,7 +74,7 @@ def BOARD_writing(request, code):
         return redirect(f'/board/{code}/post/{new_post.id}')               # 해당 게시글 페이지로 이동
 
     # GET 요청시 글쓰기 페이지(writing.html) 리턴
-    return render(request, 'board/board_writing.html', {'user' : user})
+    return render(request, 'board/board_writing.html', {'user' : user, 'code':code})
 
 def BOARD_post(request, pk, code):
     # 사용자정보 로드
