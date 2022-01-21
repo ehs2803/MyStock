@@ -39,8 +39,8 @@ def get_sise(code, start_time, end_time, time_from='day') :
 
 def BOARD(request, code):
 
-    info = get_sise('005930', '20210601', '20210605', 'day')
-    print(info)
+    #info = get_sise('005930', '20210601', '20210605', 'day')
+    #print(info)
     # 사용자정보 로드
     user = None
     if request.session.get('id'):                                 # 로그인 중이면

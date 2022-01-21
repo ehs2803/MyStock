@@ -25,7 +25,23 @@
     </nav>
     {% endif %}
 </header>
-
+<script>
+    var c = '{{code}}';
+    c=c.substr(2);
+    var receive;
+    var xhr = new XMLHttpRequest();
+    var url = 'https://api.odcloud.kr/api/GetStockSecuritiesInfoService/v1/getStockPriceInfo?numOfRows=1&pageNo=1&resultType=json';
+    var queryParams ='&'+ encodeURIComponent('likeSrtnCd') + '=' +c;
+    queryParams += '&' + encodeURIComponent('serviceKey') + '='+'O9%2FzxATILEOqXHWNZM6rDN2UXEmueF1yOIURlNSAshJpcjhZg6cObeu16LCGZUr%2BDbbjoiMdCfz9XZv3y6zAKg%3D%3D';
+    xhr.open('GET', url+queryParams);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+           receive = JSON.stringify(this.responseText);
+           console.log(receive);
+        }
+    };
+    xhr.send("");
+</script>
 
 <div class="masthead ">
     <div class="container">
