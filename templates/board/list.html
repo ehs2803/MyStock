@@ -27,17 +27,21 @@
 </header>
 <script>
     var c = '{{code}}';
-    c=c.substr(2);
+    c = c.substr(2);
     var receive;
     var xhr = new XMLHttpRequest();
     var url = 'https://api.odcloud.kr/api/GetStockSecuritiesInfoService/v1/getStockPriceInfo?numOfRows=1&pageNo=1&resultType=json';
-    var queryParams ='&'+ encodeURIComponent('likeSrtnCd') + '=' +c;
-    queryParams += '&' + encodeURIComponent('serviceKey') + '='+'O9%2FzxATILEOqXHWNZM6rDN2UXEmueF1yOIURlNSAshJpcjhZg6cObeu16LCGZUr%2BDbbjoiMdCfz9XZv3y6zAKg%3D%3D';
-    xhr.open('GET', url+queryParams);
+    var queryParams = '&' + encodeURIComponent('likeSrtnCd') + '=' + c;
+    queryParams += '&' + encodeURIComponent('serviceKey') + '=' + 'O9%2FzxATILEOqXHWNZM6rDN2UXEmueF1yOIURlNSAshJpcjhZg6cObeu16LCGZUr%2BDbbjoiMdCfz9XZv3y6zAKg%3D%3D';
+    xhr.open('GET', url + queryParams);
     xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
-           receive = JSON.stringify(this.responseText);
-           console.log(receive);
+            var index1 = this.responseText.indexOf('clpr'); // 236
+            var index2 = this.responseText.indexOf('vs');  // 251
+            var str = this.responseText.substr(index1 + 7, index2 - index1 - 4 - 6);
+            $(document).ready(function () {
+                var $print = $(str);
+            });
         }
     };
     xhr.send("");
@@ -48,6 +52,9 @@
         <div class="row">
             <div class="col-md-12 col-xs-12 mx-auto">
                 <br>
+                <div>
+                    <p id="temp">전일 종가 : </p>
+                </div>
                 <h1 class="panel-title">&nbsp;토론게시판 </h1>
 
                 <table class="table table-hover">
