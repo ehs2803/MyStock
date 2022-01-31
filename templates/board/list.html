@@ -40,7 +40,8 @@
             var index2 = this.responseText.indexOf('vs');  // 251
             var str = this.responseText.substr(index1 + 7, index2 - index1 - 4 - 6);
             $(document).ready(function () {
-                var $print = $(str);
+                var $print = $("#temp");
+                $print.append(str);
             });
         }
     };
