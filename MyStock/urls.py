@@ -23,4 +23,5 @@ urlpatterns = [
     path('board/', include("board.urls")),
     path('article/', include("articles.urls")),
     path('chat/', include("chat.urls")),
+    path('mypage/', include("mypage.urls")),
 ]

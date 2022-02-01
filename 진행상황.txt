@@ -67,3 +67,7 @@ serviceKey=O9%2FzxATILEOqXHWNZM6rDN2UXEmueF1yOIURlNSAshJpcjhZg6cObeu16LCGZUr%
 2BDbbjoiMdCfz9XZv3y6zAKg%3D%3D
 openapi 공공포털 삼성전자 활용
 - views.py에 네이버 주식 시세 가져오기 성공.
+
+2022.02.01
+- mypage app 만들기, setting 등록, url 매핑 성공.
+- 게시판, 채팅, 뉴스 인덱스에 mypage, login 연결

@@ -29,11 +29,11 @@
             <form class="d-flex">
                 {% if user %}
                 <button class="btn btn-outline-dark" type="submit">
-                    마이페이지
+                    <a class="btn btn-primary" href="/mypage">마이페이지</a>
                 </button>
                 {% else %}
                 <button class="btn btn-outline-dark" type="submit">
-                    로그인
+                    <a class="btn btn-primary" href="/accounts">login</a>
                 </button>
                 {% endif %}
             </form>
