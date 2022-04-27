@@ -1,6 +1,7 @@
 # MYSTOCK
 
 Role: Back-end Dev, Django, Front-end Dev, MySQL
+
 소요시간: 2022.01 ~ 2022.02
 
 ---
